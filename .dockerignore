@@ -2,3 +2,8 @@ node_modules
 dist
 Dockerfile
 .dockerignore
+.agents
+.claude
+.github
+CLAUDE.md
+docs
