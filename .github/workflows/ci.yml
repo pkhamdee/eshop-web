@@ -45,3 +45,6 @@ jobs:
     uses: pkhamdee/modernapp/.github/workflows/service-image.yml@main
     with:
       images: '[{"service": "eshop-web", "context": ".", "dockerfile": "Dockerfile"}]'
+    # The shared gates' push job reads DOCKERHUB_USERNAME and DOCKERHUB_TOKEN from this repository's `publish`
+    # environment, which a called workflow sees only with `secrets: inherit` (accepted in sast-accepted.txt).
+    secrets: inherit
