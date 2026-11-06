@@ -1,8 +1,8 @@
 # Conventions for eshop-web
 
-What the code does not tell you at a glance. Moved here from pkhamdee/modernapp's `docs/agents/conventions.md` when
+What the code does not tell you at a glance. Moved here from pkhamdee/eshop-infra's `docs/agents/conventions.md` when
 eshop-web got its own repository (ADR 0009); the system-wide conventions (local environment, deploy, human-only
-steps) are still there. e2e helpers named below are in `../modernapp/e2e/tests/steps.ts`.
+steps) are still there. e2e helpers named below are in `../eshop-infra/e2e/tests/steps.ts`.
 
 - Routes in `src/routes.tsx`; signed-in sections are nested layout routes guarded by `<RequireRole role=.../>`, and
   the back office is its own `/staff` branch with `StaffLayout`. Pages in `src/pages/` (`src/pages/staff/`), API
@@ -32,13 +32,13 @@ steps) are still there. e2e helpers named below are in `../modernapp/e2e/tests/s
   phone, side by side from 768 px). e2e runs a Staff session at 360 px with `atNarrowestPhone(page)` and checks
   pairs with `placement(first, second)`.
 - e2e: Customer sections are reached with `navigateTo(page, 'สินค้า' | 'ประมูล' | 'บัญชีของฉัน' | 'เข้าสู่ระบบ')`
-  in `../modernapp/e2e/tests/steps.ts` (menu on phone, top bar on desktop), Staff sections with `navigateStaffTo(page, …)`
+  in `../eshop-infra/e2e/tests/steps.ts` (menu on phone, top bar on desktop), Staff sections with `navigateStaffTo(page, …)`
   (slide-out menu on phone, sidebar on desktop); `isPhone()` tells the projects apart. `expectResponsiveList`
   checks a list is a table on desktop and labelled cards on phone.
 - Card lists (catalog Products, Auction Lots) use `ul.card-grid` (1 / 2 / 3 / 4 columns at phone / tablet / wide /
   desktop). Product and Lot pages use `.detail-layout` with `.detail-media` (photo) and `.detail-panel`: stacked
   below 1024 px, side by side from it. e2e checks layouts by position, not class: `gridColumns(list)` and
-  `placement(photo, panel)` (`'beside' | 'below' | 'overlapping'`) in `../modernapp/e2e/tests/steps.ts`; `cardsAcross(list)` reads columns from
+  `placement(photo, panel)` (`'beside' | 'below' | 'overlapping'`) in `../eshop-infra/e2e/tests/steps.ts`; `cardsAcross(list)` reads columns from
   the first card's width when a grid holds fewer cards than columns (an Auction with one Lot). The Lot page
   (`.lot-detail`) puts its bidding panel before the photos in the page, so it is on screen unscrolled on a phone;
   from 1024 px the photos sit left of it. That is fine for focus order only while the photo area holds nothing

@@ -1,12 +1,12 @@
-# eshop-web's CI (ADR 0009; pkhamdee/modernapp's docs/git-workflow.md, "Service repositories").
+# eshop-web's CI (ADR 0009; pkhamdee/eshop-infra's docs/git-workflow.md, "Service repositories").
 #   - pull request to main or release/*  -> lint and build, then the shared gates' SAST and dependency scan
 #   - push to main                       -> also the image: built, run in the temporary copy beside the other
 #                                           services' newest main images, gated, scanned, then pushed as
 #                                           docker.io/pkhamdee/eshop-web:main-<sha>-<ts> (Flux deploys it to dev)
 #   - push to release/N.x                -> the same, pushed as release-N.x-<sha> (a patch's image)
 #   - workflow_dispatch on main or release/N.x -> rebuilds and pushes that branch's image the same way
-# The gates are pkhamdee/modernapp's .github/workflows/service-image.yml. The jobs a pull request runs are main's
-# required checks, by name: renaming one means re-running pkhamdee/modernapp's scripts/protect-main.sh.
+# The gates are pkhamdee/eshop-infra's .github/workflows/service-image.yml. The jobs a pull request runs are main's
+# required checks, by name: renaming one means re-running pkhamdee/eshop-infra's scripts/protect-main.sh.
 name: CI
 
 on:
@@ -42,7 +42,7 @@ jobs:
   image:
     name: image
     needs: [lint]
-    uses: pkhamdee/modernapp/.github/workflows/service-image.yml@main
+    uses: pkhamdee/eshop-infra/.github/workflows/service-image.yml@main
     with:
       images: '[{"service": "eshop-web", "context": ".", "dockerfile": "Dockerfile"}]'
     # The shared gates' push job reads DOCKERHUB_USERNAME and DOCKERHUB_TOKEN from this repository's `publish`
