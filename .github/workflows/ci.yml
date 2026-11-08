@@ -2,7 +2,9 @@
 #   - pull request to main or release/*  -> lint and build, then the shared gates' SAST and dependency scan
 #   - push to main                       -> also the image: built, run in the temporary copy beside the other
 #                                           services' newest main images, gated, scanned, then pushed as
-#                                           docker.io/pkhamdee/eshop-web:main-<sha>-<ts> (Flux deploys it to dev)
+#                                           docker.io/pkhamdee/eshop-web:main-<sha>-<ts> (Flux deploys it to dev),
+#                                           and signed keyless with this run's identity (the `image` job's
+#                                           id-token: write; pkhamdee/eshop-infra's ADR 0011)
 #   - push to release/N.x                -> the same, pushed as release-N.x-<sha> (a patch's image)
 #   - workflow_dispatch on main or release/N.x -> rebuilds and pushes that branch's image the same way
 # The gates are pkhamdee/eshop-infra's .github/workflows/service-image.yml. The jobs a pull request runs are main's
